@@ -23,8 +23,11 @@ class ImgurProvider {
     }
   }
 
-  Future<Map<String, dynamic>> get(String endpoint) async {
-    final response = await http.get(_baseUrl + endpoint);
+  Future<Map<String, dynamic>> get(
+    String endpoint, {
+    Map<String, String> headers,
+  }) async {
+    final response = await http.get(_baseUrl + endpoint, headers: headers);
     final data = _response(response);
     return data;
   }
