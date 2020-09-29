@@ -2,6 +2,8 @@ import 'package:epicture/blocs/gallery_bloc.dart';
 import 'package:epicture/constants.dart';
 import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
+import 'package:epicture/widgets/navigation/action_button.dart';
+import 'package:epicture/widgets/navigation/navigation_bar.dart';
 import 'package:epicture/widgets/post_card.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +24,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: ActionButton(),
+      bottomNavigationBar: NavigationBar(pageNumber: 0),
       appBar: AppBar(
         title: Text('Gallery'),
       ),
