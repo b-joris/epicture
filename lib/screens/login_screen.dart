@@ -18,7 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
     webview.onStateChanged.listen((event) {
       var uri = Uri.parse(event.url.replaceFirst('#', '?'));
       if (uri.query.contains('access_token')) {
-        print(uri.queryParameters['access_token']);
         sharedPreferences.setString(
             'access_token', uri.queryParameters['access_token']);
       }
