@@ -1,4 +1,5 @@
 import 'package:epicture/blocs/gallery_bloc.dart';
+import 'package:epicture/constants.dart';
 import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
 import 'package:epicture/widgets/post_card.dart';
@@ -39,8 +40,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                     itemCount: posts.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        padding: EdgeInsets.all(defaultPadding),
                         child: PostCard(posts[index]),
                       );
                     },

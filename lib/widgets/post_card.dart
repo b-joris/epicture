@@ -1,3 +1,4 @@
+import 'package:epicture/constants.dart';
 import 'package:epicture/models/post.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class PostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -27,7 +28,7 @@ class PostCard extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.only(left: defaultPadding),
                   child: Icon(
                     post.isFavorite ? Icons.favorite : Icons.favorite_outline,
                     color: Theme.of(context).primaryColor,
