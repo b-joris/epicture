@@ -1,5 +1,7 @@
 import 'package:epicture/blocs/gallery_bloc.dart';
+import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
+import 'package:epicture/widgets/post_card.dart';
 import 'package:flutter/material.dart';
 
 class GalleryScreen extends StatefulWidget {
@@ -30,7 +32,13 @@ class _GalleryScreenState extends State<GalleryScreen> {
               case Status.LOADING:
                 return Center(child: CircularProgressIndicator());
               case Status.COMPLETED:
-                return Container();
+                final List<Post> posts = snapshot.data.data;
+                return ListView.builder(
+                  itemCount: posts.length,
+                  itemBuilder: (context, index) {
+                    return PostCard(posts[index]);
+                  },
+                );
               case Status.ERROR:
                 return Container();
             }
