@@ -24,27 +24,34 @@ class _GalleryScreenState extends State<GalleryScreen> {
       appBar: AppBar(
         title: Text('Gallery'),
       ),
-      body: StreamBuilder(
-        stream: _bloc.galleryStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            switch (snapshot.data.status) {
-              case Status.LOADING:
-                return Center(child: CircularProgressIndicator());
-              case Status.COMPLETED:
-                final List<Post> posts = snapshot.data.data;
-                return ListView.builder(
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    return PostCard(posts[index]);
-                  },
-                );
-              case Status.ERROR:
-                return Container();
+      body: RefreshIndicator(
+        onRefresh: () => _bloc.fetchGallery(),
+        child: StreamBuilder(
+          stream: _bloc.galleryStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              switch (snapshot.data.status) {
+                case Status.LOADING:
+                  return Center(child: CircularProgressIndicator());
+                case Status.COMPLETED:
+                  final List<Post> posts = snapshot.data.data;
+                  return ListView.builder(
+                    itemCount: posts.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        child: PostCard(posts[index]),
+                      );
+                    },
+                  );
+                case Status.ERROR:
+                  return Center(child: Text('Error while loading posts'));
+              }
             }
-          }
-          return Center(child: CircularProgressIndicator());
-        },
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }
