@@ -1,3 +1,4 @@
+import 'package:epicture/constants.dart';
 import 'package:epicture/screens/account_screen.dart';
 import 'package:epicture/screens/gallery_screen.dart';
 import 'package:epicture/screens/search_screen.dart';
@@ -15,6 +16,11 @@ class Epicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: primaryColor,
+        accentColor: accentColor,
+        scaffoldBackgroundColor: Colors.blueAccent,
+      ),
       initialRoute: '/gallery',
       routes: {
         '/gallery': (context) => GalleryScreen(),
