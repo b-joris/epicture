@@ -1,5 +1,6 @@
 import 'package:epicture/constants.dart';
 import 'package:epicture/screens/account_screen.dart';
+import 'package:epicture/screens/favorites_screen.dart';
 import 'package:epicture/screens/gallery_screen.dart';
 import 'package:epicture/screens/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,9 @@ class Epicture extends StatelessWidget {
       routes: {
         '/gallery': (context) => GalleryScreen(),
         '/search': (context) => SearchScreen(),
+        '/favorites': (context) => FavoritesScreen(),
         '/account': (context) => AccountScreen(),
+        '/add': (context) => Container(),
       },
     );
   }
