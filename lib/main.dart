@@ -1,7 +1,9 @@
 import 'package:epicture/constants.dart';
 import 'package:epicture/screens/account_screen.dart';
+import 'package:epicture/screens/details_screen.dart';
 import 'package:epicture/screens/favorites_screen.dart';
 import 'package:epicture/screens/gallery_screen.dart';
+import 'package:epicture/screens/login_screen.dart';
 import 'package:epicture/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +22,6 @@ class Epicture extends StatelessWidget {
       theme: ThemeData(
         primaryColor: primaryColor,
         accentColor: accentColor,
-        scaffoldBackgroundColor: Colors.blueAccent,
       ),
       initialRoute: '/gallery',
       routes: {
@@ -29,6 +30,8 @@ class Epicture extends StatelessWidget {
         '/favorites': (context) => FavoritesScreen(),
         '/account': (context) => AccountScreen(),
         '/add': (context) => Container(),
+        '/login': (context) => LoginScreen(),
+        DetailsScreen.routeName: (context) => DetailsScreen(),
       },
     );
   }
