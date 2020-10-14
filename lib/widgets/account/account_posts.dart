@@ -4,7 +4,7 @@ import 'package:epicture/networking/response.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
-import '../favorite_card.dart';
+import '../cards/grid_post_card.dart';
 
 class AccountPosts extends StatefulWidget {
   @override
@@ -33,12 +33,9 @@ class _AccountPostsState extends State<AccountPosts> {
                   return Center(child: CircularProgressIndicator());
                 case Status.COMPLETED:
                   final List<Post> posts = snapshot.data.data;
-                  print(posts.length);
-                  if (posts.length == 0) {
-                    print('0 posts');
+                  if (posts.length == 0)
                     return Center(
                         child: Text('You don\'t have any post yet !'));
-                  }
                   return GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2),
@@ -46,7 +43,7 @@ class _AccountPostsState extends State<AccountPosts> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.all(defaultPadding),
-                        child: FavoriteCard(
+                        child: GridPostCard(
                           post: posts[index],
                           onFavoriteTap: null,
                         ),

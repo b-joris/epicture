@@ -29,7 +29,14 @@ class GalleryBloc {
       gallerySink.add(Response.completed(posts));
     } catch (exception) {
       gallerySink.add(Response.error(exception.toString()));
-      print(exception);
+    }
+  }
+
+  void addAlbumToFavorites(String postID) async {
+    try {
+      await _repository.addAlbumToFavoritesData(postID);
+    } catch (exception) {
+      gallerySink.add(Response.error(exception.toString()));
     }
   }
 }

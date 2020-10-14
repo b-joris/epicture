@@ -28,7 +28,6 @@ class SearchBloc {
       searchSink.add(Response.completed(posts));
     } catch (exception) {
       searchSink.add(Response.error(exception.toString()));
-      print(exception);
     }
   }
 }
