@@ -11,6 +11,7 @@ class Post {
   final int ups;
   final int downs;
   final int commentCount;
+  final bool isFavorite;
   final List<Imgur.Image> images;
 
   Post({
@@ -23,11 +24,8 @@ class Post {
     this.downs,
     this.commentCount,
     this.images,
+    this.isFavorite,
   });
-
-  bool get isFavorite =>
-      images[0].isFavorite == null ? false : images[0].isFavorite;
-  set isFavorite(bool value) => images[0].isFavorite = value;
 
   factory Post.fromJson(Map<String, dynamic> data) {
     final images = data['images'];
@@ -41,9 +39,7 @@ class Post {
       downs: data['downs'],
       commentCount: data['comment_count'],
       views: data['views'],
-      // isFavorite: data['favorite'] == null
-      //     ? false
-      //     : data['favorite']
+      isFavorite: data['favorite'] == null ? false : data['favorite'],
       images: images == null
           ? [Imgur.Image(link: data['link'])]
           : List<Imgur.Image>.from(
