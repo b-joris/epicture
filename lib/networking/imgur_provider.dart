@@ -31,4 +31,13 @@ class ImgurProvider {
     final data = _response(response);
     return data;
   }
+
+  Future<Map<String, dynamic>> post(
+    String endpoint, {
+    Map<String, String> headers,
+  }) async {
+    final response = await http.post(_baseUrl + endpoint, headers: headers);
+    final data = _response(response);
+    return data;
+  }
 }
