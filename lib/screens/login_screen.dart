@@ -22,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
             'access_token', uri.queryParameters['access_token']);
         sharedPreferences.setString(
             'account_username', uri.queryParameters['account_username']);
+        Navigator.pushReplacementNamed(context, '/account');
       }
     });
   }

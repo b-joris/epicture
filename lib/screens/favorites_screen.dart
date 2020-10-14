@@ -1,7 +1,7 @@
 import 'package:epicture/blocs/favorites_bloc.dart';
 import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
-import 'package:epicture/widgets/favorite_card.dart';
+import 'package:epicture/widgets/cards/grid_post_card.dart';
 import 'package:epicture/widgets/navigation/action_button.dart';
 import 'package:epicture/widgets/navigation/navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.all(defaultPadding),
-                      child: FavoriteCard(
+                      child: GridPostCard(
                         post: posts[index],
                         onFavoriteTap: null,
                       ),
