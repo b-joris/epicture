@@ -20,7 +20,7 @@ class DetailsScreen extends StatelessWidget {
       ),
       body: Container(
         child: Center(
-          child: Text(post.title),
+          child: Text(post.title ?? ''),
         ),
       ),
     );

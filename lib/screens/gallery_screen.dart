@@ -4,7 +4,7 @@ import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
 import 'package:epicture/widgets/navigation/action_button.dart';
 import 'package:epicture/widgets/navigation/navigation_bar.dart';
-import 'package:epicture/widgets/post_card.dart';
+import 'package:epicture/widgets/cards/list_post_card.dart';
 import 'package:flutter/material.dart';
 
 class GalleryScreen extends StatefulWidget {
@@ -47,7 +47,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.all(defaultPadding),
-                        child: PostCard(posts[index]),
+                        child: ListPostCard(
+                          post: posts[index],
+                          onFavoriteTap: _bloc.addAlbumToFavorites,
+                        ),
                       );
                     },
                   );
