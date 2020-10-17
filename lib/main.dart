@@ -16,6 +16,56 @@ void main() async {
   runApp(Epicture());
 }
 
+class NavigationBar extends StatefulWidget {
+  @override
+  _NavigationBarState createState() => _NavigationBarState();
+}
+
+class _NavigationBarState extends State<NavigationBar> {
+  int _currentIndex = 0;
+
+  final screens = [
+    GalleryScreen(),
+    SearchScreen(),
+    FavoritesScreen(),
+    AccountScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (int index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.collections),
+            label: 'Gallery',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Account',
+          ),
+        ],
+      ),
+      body: screens[_currentIndex],
+    );
+  }
+}
+
 class Epicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,8 +74,9 @@ class Epicture extends StatelessWidget {
         primaryColor: primaryColor,
         accentColor: accentColor,
       ),
-      initialRoute: '/gallery',
+      initialRoute: '/navigation',
       routes: {
+        '/navigation': (context) => NavigationBar(),
         '/gallery': (context) => GalleryScreen(),
         '/search': (context) => SearchScreen(),
         '/favorites': (context) => FavoritesScreen(),

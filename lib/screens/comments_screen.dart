@@ -1,8 +1,6 @@
 import 'package:epicture/constants.dart';
 import 'package:epicture/models/comment.dart';
 import 'package:epicture/widgets/comment_item.dart';
-import 'package:epicture/widgets/navigation/action_button.dart';
-import 'package:epicture/widgets/navigation/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class CommentsScreen extends StatefulWidget {
@@ -18,8 +16,6 @@ class _CommentsScreenState extends State<CommentsScreen> {
     final Comment comment = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      floatingActionButton: ActionButton(),
-      bottomNavigationBar: NavigationBar(pageNumber: 0),
       appBar: AppBar(
         title: Text('Comments'),
       ),

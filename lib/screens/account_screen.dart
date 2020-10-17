@@ -1,8 +1,6 @@
 import 'package:epicture/main.dart';
 import 'package:epicture/screens/login_screen.dart';
 import 'package:epicture/widgets/account/account_posts.dart';
-import 'package:epicture/widgets/navigation/action_button.dart';
-import 'package:epicture/widgets/navigation/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -39,10 +37,6 @@ class _AccountScreenState extends State<AccountScreen>
     if (username == null) return LoginScreen();
 
     return Scaffold(
-      extendBody: true,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: ActionButton(),
-      bottomNavigationBar: NavigationBar(pageNumber: 3),
       appBar: AppBar(
         title: Text('Account'),
         actions: [

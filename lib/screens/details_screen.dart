@@ -5,8 +5,6 @@ import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
 import 'package:epicture/widgets/comment_item.dart';
 import 'package:epicture/widgets/fullscreen_image.dart';
-import 'package:epicture/widgets/navigation/action_button.dart';
-import 'package:epicture/widgets/navigation/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -31,8 +29,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
     _bloc = CommentsBloc(post.id);
 
     return Scaffold(
-      floatingActionButton: ActionButton(),
-      bottomNavigationBar: NavigationBar(pageNumber: 0),
       appBar: AppBar(
         title: Text('Details'),
       ),
