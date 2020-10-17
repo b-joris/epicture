@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
 
-class SearchBar extends StatefulWidget {
+class SearchBar extends StatelessWidget {
+  final Function onChanged;
   final Function onSubmitted;
 
-  const SearchBar({Key key, @required this.onSubmitted}) : super(key: key);
-
-  @override
-  _SearchBarState createState() => _SearchBarState();
-}
-
-class _SearchBarState extends State<SearchBar> {
-  final _searchController = TextEditingController();
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
+  const SearchBar({
+    Key key,
+    @required this.onChanged,
+    @required this.onSubmitted,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: _searchController,
       autocorrect: false,
       cursorColor: Theme.of(context).primaryColor,
+      onChanged: onChanged,
       onEditingComplete: () {
-        widget.onSubmitted(_searchController.text);
+        onSubmitted();
         FocusScope.of(context).unfocus();
       },
       decoration: InputDecoration(

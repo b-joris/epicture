@@ -20,11 +20,16 @@ class SearchBloc {
   StreamSink<Response<List<Post>>> get searchSink => _controller.sink;
   Stream<Response<List<Post>>> get searchStream => _controller.stream;
 
-  fetchSearch(String query) async {
+  fetchSearch(
+    String query, {
+    String sort = 'time',
+    String window = 'all',
+  }) async {
     searchSink.add(Response.loading('Getting Search Posts'));
 
     try {
-      List<Post> posts = await _repository.fetchSearchData(query);
+      List<Post> posts =
+          await _repository.fetchSearchData(query, sort: sort, window: window);
       searchSink.add(Response.completed(posts));
     } catch (exception) {
       searchSink.add(Response.error(exception.toString()));

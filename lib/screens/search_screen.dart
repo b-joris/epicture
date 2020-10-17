@@ -12,12 +12,50 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  String _query = '';
+  int _selectedSort = 0;
+  int _selectedWindow = 0;
   final _bloc = SearchBloc();
+  final _sorts = ['time', 'viral', 'top'];
+  final _windows = ['all', 'day', 'week', 'month', 'year'];
 
   @override
   void dispose() {
     _bloc.dispose();
     super.dispose();
+  }
+
+  _fetchSearch() {
+    _bloc.fetchSearch(
+      _query,
+      sort: _sorts[_selectedSort],
+      window: _windows[_selectedWindow],
+    );
+  }
+
+  _buildInputChipRow(bool isSort, List<String> possibilities) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: possibilities.map((sort) {
+        final index = possibilities.indexOf(sort);
+        final currentIndex = isSort ? _selectedSort : _selectedWindow;
+
+        return InputChip(
+          selected: index == currentIndex,
+          label: Text(possibilities[index]),
+          selectedColor: Theme.of(context).accentColor,
+          onPressed: () {
+            setState(() {
+              if (isSort)
+                _selectedSort = index;
+              else
+                _selectedWindow = index;
+            });
+            _fetchSearch();
+          },
+        );
+      }).toList(),
+    );
   }
 
   @override
@@ -30,7 +68,20 @@ class _SearchScreenState extends State<SearchScreen> {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding),
-            child: SearchBar(onSubmitted: _bloc.fetchSearch),
+            child: Column(
+              children: [
+                SearchBar(
+                  onChanged: (query) => setState(() {
+                    _query = query;
+                  }),
+                  onSubmitted: _fetchSearch,
+                ),
+                _buildInputChipRow(true, _sorts),
+                _selectedSort == 0
+                    ? _buildInputChipRow(false, _windows)
+                    : Container(),
+              ],
+            ),
           ),
           StreamBuilder(
             stream: _bloc.searchStream,
@@ -55,6 +106,10 @@ class _SearchScreenState extends State<SearchScreen> {
                           );
                         },
                       ),
+                    );
+                  case Status.ERROR:
+                    return Expanded(
+                      child: Center(child: Text('Error while loading posts')),
                     );
                 }
               }
