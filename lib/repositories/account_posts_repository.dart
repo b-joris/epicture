@@ -7,14 +7,13 @@ import '../main.dart';
 
 class AccountPostsRepository {
   final _provider = ImgurProvider();
-  final _username = sharedPreferences.get('account_username');
   final _accessToken = sharedPreferences.get('access_token');
 
   Future<List<Post>> fetchAccountPostsData({
     int page = 0,
   }) async {
     final data = await _provider.get(
-      'account/$_username/images/$page',
+      'account/me/images/$page',
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $_accessToken',
       },

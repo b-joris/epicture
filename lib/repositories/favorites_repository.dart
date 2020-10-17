@@ -7,7 +7,6 @@ import '../main.dart';
 
 class FavoritesRepository {
   final _provider = ImgurProvider();
-  final _username = sharedPreferences.get('account_username');
   final _accessToken = sharedPreferences.get('access_token');
 
   Future<List<Post>> fetchFavoritesData({
@@ -15,7 +14,7 @@ class FavoritesRepository {
     String sort = 'newest',
   }) async {
     final data = await _provider.get(
-      'account/$_username/favorites/$page/$sort',
+      'account/me/gallery_favorites/$page/$sort',
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $_accessToken',
       },
