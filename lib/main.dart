@@ -1,5 +1,6 @@
 import 'package:epicture/constants.dart';
 import 'package:epicture/screens/account_screen.dart';
+import 'package:epicture/screens/comments_screen.dart';
 import 'package:epicture/screens/details_screen.dart';
 import 'package:epicture/screens/favorites_screen.dart';
 import 'package:epicture/screens/gallery_screen.dart';
@@ -32,6 +33,7 @@ class Epicture extends StatelessWidget {
         '/add': (context) => Container(),
         '/login': (context) => LoginScreen(),
         DetailsScreen.routeName: (context) => DetailsScreen(),
+        CommentsScreen.routeName: (context) => CommentsScreen(),
       },
     );
   }

@@ -18,7 +18,9 @@ class GalleryRepository {
     final data = await _provider.get(
       'gallery/$section?showViral=$showViral&mature=$showMature&album_previews=false',
       headers: {
-        HttpHeaders.authorizationHeader: 'Client-ID $clientID',
+        HttpHeaders.authorizationHeader: _accessToken != null
+            ? 'Bearer $_accessToken'
+            : 'Client-ID: $clientID',
       },
     );
     final posts =
