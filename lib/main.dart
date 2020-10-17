@@ -2,7 +2,6 @@ import 'package:epicture/constants.dart';
 import 'package:epicture/screens/account_screen.dart';
 import 'package:epicture/screens/comments_screen.dart';
 import 'package:epicture/screens/details_screen.dart';
-import 'package:epicture/screens/favorites_screen.dart';
 import 'package:epicture/screens/gallery_screen.dart';
 import 'package:epicture/screens/login_screen.dart';
 import 'package:epicture/screens/search_screen.dart';
@@ -27,7 +26,6 @@ class _NavigationBarState extends State<NavigationBar> {
   final screens = [
     GalleryScreen(),
     SearchScreen(),
-    FavoritesScreen(),
     AccountScreen(),
   ];
 
@@ -50,10 +48,6 @@ class _NavigationBarState extends State<NavigationBar> {
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -79,7 +73,6 @@ class Epicture extends StatelessWidget {
         '/navigation': (context) => NavigationBar(),
         '/gallery': (context) => GalleryScreen(),
         '/search': (context) => SearchScreen(),
-        '/favorites': (context) => FavoritesScreen(),
         '/account': (context) => AccountScreen(),
         '/add': (context) => Container(),
         '/login': (context) => LoginScreen(),

@@ -1,6 +1,7 @@
 import 'package:epicture/main.dart';
 import 'package:epicture/screens/login_screen.dart';
 import 'package:epicture/widgets/account/account_posts.dart';
+import 'package:epicture/widgets/account/favorites_posts.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _AccountScreenState extends State<AccountScreen>
 
   List<Widget> accountTabs = [
     Tab(icon: Icon(Icons.collections)),
+    Tab(icon: Icon(Icons.favorite)),
     Tab(icon: Icon(Icons.person)),
     Tab(icon: Icon(Icons.settings)),
   ];
@@ -57,6 +59,7 @@ class _AccountScreenState extends State<AccountScreen>
         controller: tabController,
         children: [
           AccountPosts(),
+          FavoritesPosts(),
           Center(
             child: Text(
               selectedIndex.toString(),
