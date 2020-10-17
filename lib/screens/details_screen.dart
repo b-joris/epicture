@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:epicture/blocs/comments_bloc.dart';
 import 'package:epicture/constants.dart';
 import 'package:epicture/models/comment.dart';
@@ -32,92 +33,91 @@ class _DetailsScreenState extends State<DetailsScreen> {
       appBar: AppBar(
         title: Text('Details'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(defaultPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              post.title ?? '',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(height: 10),
-            Container(
-              height: 300,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: post.images.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return FullScreenImage(
-                        imageUrl: post.images[index].link,
-                        tag: 'image-${post.images[index].id}',
-                      );
-                    }))
-                  },
-                  child: Hero(
-                    child: Image.network(post.images[index].link),
-                    tag: 'image-${post.images[index].id}',
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Icon(
-                  post.isFavorite ? Icons.favorite : Icons.favorite_outline,
-                  color: Theme.of(context).primaryColor,
-                  size: 28,
-                ),
-                Spacer(),
-                Row(
-                  children: [
-                    Icon(Icons.arrow_drop_up),
-                    Text(post.ups.toString()),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Icon(Icons.arrow_drop_down),
-                    Text(post.downs.toString()),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: StreamBuilder(
-                stream: _bloc.commentsStream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    switch (snapshot.data.status) {
-                      case Status.LOADING:
-                        return Center(child: CircularProgressIndicator());
-                      case Status.COMPLETED:
-                        final List<Comment> comments = snapshot.data.data;
-                        return ListView.builder(
-                          itemCount: comments.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.all(defaultPadding),
-                              child: CommentItem(comment: comments[index]),
-                            );
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Card(
+            child: Padding(
+              padding: EdgeInsets.all(defaultPadding),
+              child: Column(
+                children: [
+                  CarouselSlider(
+                    options: CarouselOptions(height: 300.0),
+                    items: post.images.map((image) {
+                      return Builder(
+                        builder: (context) => GestureDetector(
+                          onTap: () => {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) {
+                              return FullScreenImage(
+                                imageUrl: image.link,
+                                tag: 'image-${image.id}',
+                              );
+                            }))
                           },
-                        );
-                      case Status.ERROR:
-                        print(snapshot.data);
-                        return Center(
-                            child: Text('Error while loading comments'));
-                    }
-                  }
-                  return Center(child: CircularProgressIndicator());
-                },
+                          child: Image.network(image.link),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Icon(
+                        post.isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_outline,
+                        color: Theme.of(context).primaryColor,
+                        size: 28,
+                      ),
+                      Spacer(),
+                      Row(
+                        children: [
+                          Icon(Icons.arrow_drop_up),
+                          Text(post.ups.toString()),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Icon(Icons.arrow_drop_down),
+                          Text(post.downs.toString()),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: StreamBuilder(
+              stream: _bloc.commentsStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  switch (snapshot.data.status) {
+                    case Status.LOADING:
+                      return Center(child: CircularProgressIndicator());
+                    case Status.COMPLETED:
+                      final List<Comment> comments = snapshot.data.data;
+                      return ListView.builder(
+                        itemCount: comments.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.all(defaultPadding),
+                            child: CommentItem(comment: comments[index]),
+                          );
+                        },
+                      );
+                    case Status.ERROR:
+                      return Center(
+                          child: Text('Error while loading comments'));
+                  }
+                }
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
