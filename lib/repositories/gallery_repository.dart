@@ -29,14 +29,4 @@ class GalleryRepository {
             .toList();
     return posts;
   }
-
-  Future<Map<String, dynamic>> addAlbumToFavoritesData(String postID) async {
-    final data = await _provider.post(
-      'album/$postID/favorite',
-      headers: {
-        HttpHeaders.authorizationHeader: 'Bearer $_accessToken',
-      },
-    );
-    return data;
-  }
 }

@@ -31,12 +31,4 @@ class GalleryBloc {
       gallerySink.add(Response.error(exception.toString()));
     }
   }
-
-  void addAlbumToFavorites(String postID) async {
-    try {
-      await _repository.addAlbumToFavoritesData(postID);
-    } catch (exception) {
-      gallerySink.add(Response.error(exception.toString()));
-    }
-  }
 }
