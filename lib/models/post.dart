@@ -8,11 +8,12 @@ class Post {
   final String link;
   final String accountUrl;
   final int views;
-  final int ups;
-  final int downs;
   final int commentCount;
-  final bool isFavorite;
   final List<Imgur.Image> images;
+  int ups;
+  int downs;
+  bool isFavorite;
+  String vote;
 
   Post({
     this.id,
@@ -24,6 +25,7 @@ class Post {
     this.downs,
     this.commentCount,
     this.images,
+    this.vote,
     this.isFavorite,
   });
 
@@ -40,6 +42,7 @@ class Post {
       commentCount: data['comment_count'],
       views: data['views'],
       isFavorite: data['favorite'] == null ? false : data['favorite'],
+      vote: data['vote'],
       images: images == null
           ? [Imgur.Image(link: data['link'])]
           : List<Imgur.Image>.from(

@@ -1,4 +1,5 @@
 import 'package:epicture/blocs/gallery_bloc.dart';
+import 'package:epicture/blocs/interactions_bloc.dart';
 import 'package:epicture/constants.dart';
 import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
@@ -11,11 +12,12 @@ class GalleryScreen extends StatefulWidget {
 }
 
 class _GalleryScreenState extends State<GalleryScreen> {
-  final _bloc = GalleryBloc();
+  final _galleryBloc = GalleryBloc();
+  final _interactionsBloc = InteractionsBloc();
 
   @override
   dispose() {
-    _bloc.dispose();
+    _galleryBloc.dispose();
     super.dispose();
   }
 
@@ -26,9 +28,9 @@ class _GalleryScreenState extends State<GalleryScreen> {
         title: Text('Gallery'),
       ),
       body: RefreshIndicator(
-        onRefresh: () => _bloc.fetchGallery(),
+        onRefresh: () => _galleryBloc.fetchGallery(),
         child: StreamBuilder(
-          stream: _bloc.galleryStream,
+          stream: _galleryBloc.galleryStream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               switch (snapshot.data.status) {
@@ -43,7 +45,8 @@ class _GalleryScreenState extends State<GalleryScreen> {
                         padding: EdgeInsets.all(defaultPadding),
                         child: ListPostCard(
                           post: posts[index],
-                          onFavoriteTap: _bloc.addAlbumToFavorites,
+                          onFavoriteTap: _interactionsBloc.addAlbumToFavorites,
+                          onVoteTap: _interactionsBloc.voteForAlbum,
                         ),
                       );
                     },

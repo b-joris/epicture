@@ -7,10 +7,12 @@ import 'package:video_player/video_player.dart';
 class ListPostCard extends StatefulWidget {
   final Post post;
   final Function onFavoriteTap;
+  final Function onVoteTap;
 
   const ListPostCard({
     @required this.post,
     @required this.onFavoriteTap,
+    @required this.onVoteTap,
     Key key,
   }) : super(key: key);
 
@@ -76,7 +78,15 @@ class _ListPostCardState extends State<ListPostCard> {
                   Padding(
                     padding: EdgeInsets.only(left: defaultPadding),
                     child: GestureDetector(
-                      onTap: () => widget.onFavoriteTap(widget.post.id),
+                      onTap: () {
+                        widget.onFavoriteTap(widget.post.id).then((isToggled) =>
+                            isToggled
+                                ? setState(() => {
+                                      this.widget.post.isFavorite =
+                                          !this.widget.post.isFavorite
+                                    })
+                                : null);
+                      },
                       child: Icon(
                         widget.post.isFavorite
                             ? Icons.favorite
@@ -100,17 +110,65 @@ class _ListPostCardState extends State<ListPostCard> {
                     ],
                   ),
                   Spacer(),
-                  Row(
-                    children: [
-                      Icon(Icons.arrow_drop_up),
-                      Text(widget.post.ups.toString()),
-                    ],
+                  GestureDetector(
+                    onTap: () => widget
+                        .onVoteTap(widget.post.id,
+                            vote: widget.post.vote == 'up' ? 'veto' : 'up')
+                        .then((isVoted) => isVoted
+                            ? setState(() {
+                                if (widget.post.vote == 'up') {
+                                  widget.post.vote = 'veto';
+                                  widget.post.ups -= 1;
+                                } else if (widget.post.vote == 'down') {
+                                  widget.post.vote = 'up';
+                                  widget.post.downs -= 1;
+                                } else {
+                                  widget.post.vote = 'up';
+                                  widget.post.ups += 1;
+                                }
+                              })
+                            : null),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_drop_up,
+                          color: widget.post.vote == 'up'
+                              ? accentColor
+                              : Colors.black,
+                        ),
+                        Text(widget.post.ups.toString()),
+                      ],
+                    ),
                   ),
-                  Row(
-                    children: [
-                      Icon(Icons.arrow_drop_down),
-                      Text(widget.post.downs.toString()),
-                    ],
+                  GestureDetector(
+                    onTap: () => widget
+                        .onVoteTap(widget.post.id,
+                            vote: widget.post.vote == 'down' ? 'veto' : 'down')
+                        .then((isVoted) => isVoted
+                            ? setState(() {
+                                if (widget.post.vote == 'down') {
+                                  widget.post.vote = 'veto';
+                                  widget.post.downs -= 1;
+                                } else if (widget.post.vote == 'down') {
+                                  widget.post.vote = 'down';
+                                  widget.post.ups -= 1;
+                                } else {
+                                  widget.post.vote = 'down';
+                                  widget.post.downs += 1;
+                                }
+                              })
+                            : null),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_drop_down,
+                          color: widget.post.vote == 'down'
+                              ? accentColor
+                              : Colors.black,
+                        ),
+                        Text(widget.post.downs.toString()),
+                      ],
+                    ),
                   ),
                 ],
               ),
