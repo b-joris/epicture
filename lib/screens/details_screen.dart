@@ -17,8 +17,8 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen> {
   final _interactionsBloc = InteractionsBloc();
-  var _commentsBloc = CommentsBloc('');
   final _commentController = TextEditingController();
+  var _commentsBloc;
 
   @override
   void dispose() {
@@ -63,7 +63,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final Post post = ModalRoute.of(context).settings.arguments;
-    _commentsBloc = CommentsBloc(post.id);
+    _commentsBloc = CommentsBloc.fromPost(post.id);
 
     return Scaffold(
       appBar: AppBar(

@@ -1,5 +1,6 @@
 import 'package:epicture/main.dart';
 import 'package:epicture/screens/login_screen.dart';
+import 'package:epicture/widgets/account/account_comments.dart';
 import 'package:epicture/widgets/account/account_posts.dart';
 import 'package:epicture/widgets/account/account_settings.dart';
 import 'package:epicture/widgets/account/favorites_posts.dart';
@@ -20,6 +21,7 @@ class _AccountScreenState extends State<AccountScreen>
   List<Widget> accountTabs = [
     Tab(icon: Icon(Icons.collections)),
     Tab(icon: Icon(Icons.favorite)),
+    Tab(icon: Icon(Icons.message)),
     Tab(icon: Icon(Icons.person)),
   ];
 
@@ -59,6 +61,7 @@ class _AccountScreenState extends State<AccountScreen>
         children: [
           AccountPosts(),
           FavoritesPosts(),
+          AccountComments(),
           AccountSettings(),
         ],
       ),

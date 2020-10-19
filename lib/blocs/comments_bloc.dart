@@ -8,7 +8,12 @@ class CommentsBloc {
   CommentsRepository _repository;
   StreamController _controller;
 
-  CommentsBloc(String postID) {
+  CommentsBloc() {
+    _repository = CommentsRepository();
+    _controller = StreamController<Response<List<Comment>>>();
+  }
+
+  CommentsBloc.fromPost(String postID) {
     _repository = CommentsRepository();
     _controller = StreamController<Response<List<Comment>>>();
     fetchComments(postID);
@@ -25,8 +30,21 @@ class CommentsBloc {
     commentsSink.add(Response.loading('Getting Post Comments'));
 
     try {
-      List<Comment> posts = await _repository.fetchComments(postID);
+      List<Comment> posts = await _repository.fetchCommentsData(postID);
       commentsSink.add(Response.completed(posts));
+    } catch (exception) {
+      commentsSink.add(Response.error(exception.toString()));
+    }
+  }
+
+  fetchUserComments({
+    String user = 'me',
+  }) async {
+    commentsSink.add(Response.loading('Getting User Comments'));
+
+    try {
+      List<Comment> comments = await _repository.fetchUserCommentsData();
+      commentsSink.add(Response.completed(comments));
     } catch (exception) {
       commentsSink.add(Response.error(exception.toString()));
     }
