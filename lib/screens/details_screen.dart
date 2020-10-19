@@ -18,11 +18,46 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   final _interactionsBloc = InteractionsBloc();
   var _commentsBloc = CommentsBloc('');
+  final _commentController = TextEditingController();
 
   @override
   void dispose() {
     _commentsBloc.dispose();
     super.dispose();
+  }
+
+  _showDialog(String postID) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Write your comment'),
+        content: TextField(
+          controller: _commentController,
+        ),
+        actions: [
+          RaisedButton(
+            color: Theme.of(context).accentColor,
+            child: Text(
+              'Send',
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () {
+              if (_commentController.text.isEmpty) return;
+              _interactionsBloc
+                  .addComment(postID, _commentController.text)
+                  .then(
+                (isSend) {
+                  if (isSend) {
+                    _commentController.text = '';
+                    Navigator.pop(context);
+                  }
+                },
+              );
+            },
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -33,6 +68,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Details'),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => _showDialog(post.id),
+        label: Text('Add a comment'),
+        icon: Icon(Icons.edit),
+        foregroundColor: Colors.white,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

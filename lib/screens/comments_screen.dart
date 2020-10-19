@@ -1,7 +1,6 @@
 import 'package:epicture/blocs/interactions_bloc.dart';
 import 'package:epicture/constants.dart';
 import 'package:epicture/models/comment.dart';
-import 'package:epicture/models/post.dart';
 import 'package:epicture/widgets/comment_item.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +19,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('Write your answer'),
+        title: Text('Write your reply'),
         content: TextField(
           controller: _commentController,
         ),
@@ -62,7 +61,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showDialog(comment.postID, comment),
         icon: Icon(Icons.edit),
-        label: Text('Add a response'),
+        label: Text('Add a reply'),
         foregroundColor: Colors.white,
       ),
       body: Stack(
