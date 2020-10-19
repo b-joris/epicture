@@ -4,13 +4,62 @@ import 'package:epicture/models/post.dart';
 import 'package:epicture/widgets/fullscreen_image.dart';
 import 'package:flutter/material.dart';
 
-class DetailsCard extends StatelessWidget {
+class DetailsCard extends StatefulWidget {
   final Post post;
+  final Function onFavoriteTap;
+  final Function onVoteTap;
 
   const DetailsCard({
     Key key,
     @required this.post,
+    @required this.onFavoriteTap,
+    @required this.onVoteTap,
   }) : super(key: key);
+
+  @override
+  _DetailsCardState createState() => _DetailsCardState();
+}
+
+class _DetailsCardState extends State<DetailsCard> {
+  void _changeVote(String tapped) {
+    String vote = '';
+
+    if (tapped == 'up')
+      vote = widget.post.vote == 'up' ? 'veto' : 'up';
+    else
+      vote = widget.post.vote == 'down' ? 'veto' : 'down';
+
+    widget.onVoteTap(widget.post.id, vote: vote).then((isVoted) {
+      if (isVoted) {
+        setState(() {
+          if (widget.post.vote == 'up') {
+            widget.post.vote = vote;
+            widget.post.ups -= 1;
+            if (vote == 'down') widget.post.downs += 1;
+          } else if (widget.post.vote == 'down') {
+            widget.post.vote = vote;
+            widget.post.downs -= 1;
+            if (vote == 'up') widget.post.ups += 1;
+          } else {
+            widget.post.vote = vote;
+            if (vote == 'up')
+              widget.post.ups += 1;
+            else
+              widget.post.downs += 1;
+          }
+        });
+      }
+    });
+  }
+
+  void _toggleFavorite() {
+    widget.onFavoriteTap(widget.post.id).then((isToggled) {
+      if (isToggled)
+        setState(() {
+          this.widget.post.isFavorite = !this.widget.post.isFavorite;
+        });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +70,12 @@ class DetailsCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              post.title ?? '',
+              widget.post.title ?? '',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
             ),
             CarouselSlider(
               options: CarouselOptions(height: 300.0),
-              items: post.images.map((image) {
+              items: widget.post.images.map((image) {
                 return Builder(
                   builder: (context) => GestureDetector(
                     onTap: () => {
@@ -45,23 +94,44 @@ class DetailsCard extends StatelessWidget {
             SizedBox(height: 10),
             Row(
               children: [
-                Icon(
-                  post.isFavorite ? Icons.favorite : Icons.favorite_outline,
-                  color: Theme.of(context).primaryColor,
-                  size: 28,
+                GestureDetector(
+                  onTap: _toggleFavorite,
+                  child: Icon(
+                    widget.post.isFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_outline,
+                    color: Theme.of(context).primaryColor,
+                    size: 28,
+                  ),
                 ),
                 Spacer(),
-                Row(
-                  children: [
-                    Icon(Icons.arrow_drop_up),
-                    Text(post.ups.toString()),
-                  ],
+                GestureDetector(
+                  onTap: () => _changeVote('up'),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.arrow_drop_up,
+                        color: widget.post.vote == 'up'
+                            ? Theme.of(context).accentColor
+                            : Colors.black,
+                      ),
+                      Text(widget.post.ups.toString()),
+                    ],
+                  ),
                 ),
-                Row(
-                  children: [
-                    Icon(Icons.arrow_drop_down),
-                    Text(post.downs.toString()),
-                  ],
+                GestureDetector(
+                  onTap: () => _changeVote('down'),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.arrow_drop_down,
+                        color: widget.post.vote == 'down'
+                            ? Theme.of(context).accentColor
+                            : Colors.black,
+                      ),
+                      Text(widget.post.downs.toString()),
+                    ],
+                  ),
                 ),
               ],
             ),

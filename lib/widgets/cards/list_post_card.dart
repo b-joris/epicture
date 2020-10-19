@@ -29,6 +29,46 @@ class _ListPostCardState extends State<ListPostCard> {
     super.dispose();
   }
 
+  void _changeVote(String tapped) {
+    String vote = '';
+
+    if (tapped == 'up')
+      vote = widget.post.vote == 'up' ? 'veto' : 'up';
+    else
+      vote = widget.post.vote == 'down' ? 'veto' : 'down';
+
+    widget.onVoteTap(widget.post.id, vote: vote).then((isVoted) {
+      if (isVoted) {
+        setState(() {
+          if (widget.post.vote == 'up') {
+            widget.post.vote = vote;
+            widget.post.ups -= 1;
+            if (vote == 'down') widget.post.downs += 1;
+          } else if (widget.post.vote == 'down') {
+            widget.post.vote = vote;
+            widget.post.downs -= 1;
+            if (vote == 'up') widget.post.ups += 1;
+          } else {
+            widget.post.vote = vote;
+            if (vote == 'up')
+              widget.post.ups += 1;
+            else
+              widget.post.downs += 1;
+          }
+        });
+      }
+    });
+  }
+
+  void _toggleFavorite() {
+    widget.onFavoriteTap(widget.post.id).then((isToggled) {
+      if (isToggled)
+        setState(() {
+          this.widget.post.isFavorite = !this.widget.post.isFavorite;
+        });
+    });
+  }
+
   Widget _buildPreview() {
     if (widget.post.images[0].link.contains('mp4')) {
       return Center(child: CircularProgressIndicator());
@@ -78,15 +118,7 @@ class _ListPostCardState extends State<ListPostCard> {
                   Padding(
                     padding: EdgeInsets.only(left: defaultPadding),
                     child: GestureDetector(
-                      onTap: () {
-                        widget.onFavoriteTap(widget.post.id).then((isToggled) =>
-                            isToggled
-                                ? setState(() => {
-                                      this.widget.post.isFavorite =
-                                          !this.widget.post.isFavorite
-                                    })
-                                : null);
-                      },
+                      onTap: _toggleFavorite,
                       child: Icon(
                         widget.post.isFavorite
                             ? Icons.favorite
@@ -111,29 +143,13 @@ class _ListPostCardState extends State<ListPostCard> {
                   ),
                   Spacer(),
                   GestureDetector(
-                    onTap: () => widget
-                        .onVoteTap(widget.post.id,
-                            vote: widget.post.vote == 'up' ? 'veto' : 'up')
-                        .then((isVoted) => isVoted
-                            ? setState(() {
-                                if (widget.post.vote == 'up') {
-                                  widget.post.vote = 'veto';
-                                  widget.post.ups -= 1;
-                                } else if (widget.post.vote == 'down') {
-                                  widget.post.vote = 'up';
-                                  widget.post.downs -= 1;
-                                } else {
-                                  widget.post.vote = 'up';
-                                  widget.post.ups += 1;
-                                }
-                              })
-                            : null),
+                    onTap: () => _changeVote('up'),
                     child: Row(
                       children: [
                         Icon(
                           Icons.arrow_drop_up,
                           color: widget.post.vote == 'up'
-                              ? accentColor
+                              ? Theme.of(context).accentColor
                               : Colors.black,
                         ),
                         Text(widget.post.ups.toString()),
@@ -141,29 +157,13 @@ class _ListPostCardState extends State<ListPostCard> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => widget
-                        .onVoteTap(widget.post.id,
-                            vote: widget.post.vote == 'down' ? 'veto' : 'down')
-                        .then((isVoted) => isVoted
-                            ? setState(() {
-                                if (widget.post.vote == 'down') {
-                                  widget.post.vote = 'veto';
-                                  widget.post.downs -= 1;
-                                } else if (widget.post.vote == 'down') {
-                                  widget.post.vote = 'down';
-                                  widget.post.ups -= 1;
-                                } else {
-                                  widget.post.vote = 'down';
-                                  widget.post.downs += 1;
-                                }
-                              })
-                            : null),
+                    onTap: () => _changeVote('down'),
                     child: Row(
                       children: [
                         Icon(
                           Icons.arrow_drop_down,
                           color: widget.post.vote == 'down'
-                              ? accentColor
+                              ? Theme.of(context).accentColor
                               : Colors.black,
                         ),
                         Text(widget.post.downs.toString()),

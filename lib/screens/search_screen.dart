@@ -1,3 +1,4 @@
+import 'package:epicture/blocs/interactions_bloc.dart';
 import 'package:epicture/blocs/search_bloc.dart';
 import 'package:epicture/constants.dart';
 import 'package:epicture/models/post.dart';
@@ -16,6 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
   int _selectedSort = 0;
   int _selectedWindow = 0;
   final _bloc = SearchBloc();
+  final _interactionsBloc = InteractionsBloc();
   final _sorts = ['time', 'viral', 'top'];
   final _windows = ['all', 'day', 'week', 'month', 'year'];
 
@@ -101,7 +103,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             padding: EdgeInsets.all(defaultPadding),
                             child: ListPostCard(
                               post: posts[index],
-                              onFavoriteTap: null,
+                              onFavoriteTap:
+                                  _interactionsBloc.addAlbumToFavorites,
+                              onVoteTap: _interactionsBloc.voteForAlbum,
                             ),
                           );
                         },

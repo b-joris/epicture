@@ -1,4 +1,5 @@
 import 'package:epicture/blocs/comments_bloc.dart';
+import 'package:epicture/blocs/interactions_bloc.dart';
 import 'package:epicture/constants.dart';
 import 'package:epicture/models/comment.dart';
 import 'package:epicture/models/post.dart';
@@ -15,18 +16,19 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  var _bloc = CommentsBloc('');
+  final _interactionsBloc = InteractionsBloc();
+  var _commentsBloc = CommentsBloc('');
 
   @override
   void dispose() {
-    _bloc.dispose();
+    _commentsBloc.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final Post post = ModalRoute.of(context).settings.arguments;
-    _bloc = CommentsBloc(post.id);
+    _commentsBloc = CommentsBloc(post.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -35,10 +37,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DetailsCard(post: post),
+          DetailsCard(
+            post: post,
+            onFavoriteTap: _interactionsBloc.addAlbumToFavorites,
+            onVoteTap: _interactionsBloc.voteForAlbum,
+          ),
           Expanded(
             child: StreamBuilder(
-              stream: _bloc.commentsStream,
+              stream: _commentsBloc.commentsStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   switch (snapshot.data.status) {
