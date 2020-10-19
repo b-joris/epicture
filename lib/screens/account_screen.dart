@@ -11,7 +11,7 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreenState extends State<AccountScreen>
     with SingleTickerProviderStateMixin {
-  final username = sharedPreferences.get('account_username');
+  final _accessToken = sharedPreferences.get('access_token');
 
   TabController tabController;
   int selectedIndex = 0;
@@ -36,7 +36,7 @@ class _AccountScreenState extends State<AccountScreen>
 
   @override
   Widget build(BuildContext context) {
-    if (username == null) return LoginScreen();
+    if (_accessToken == null) return LoginScreen();
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +45,6 @@ class _AccountScreenState extends State<AccountScreen>
           IconButton(
               icon: Icon(Icons.logout),
               onPressed: () {
-                sharedPreferences.remove('account_username');
                 sharedPreferences.remove('access_token');
                 Navigator.pushReplacementNamed(context, '/gallery');
               })
