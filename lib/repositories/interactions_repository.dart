@@ -20,13 +20,40 @@ class InteractionsRepository {
 
   Future<Map<String, dynamic>> voteForAlbumData(
     String postID, {
-    String vote,
+    String vote = '',
   }) async {
     final data = await _provider.post(
       'gallery/$postID/vote/$vote',
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $_accessToken',
       },
+    );
+    return data;
+  }
+
+  Future<Map<String, dynamic>> addCommentData(
+    String imageID,
+    String comment, {
+    int parentID = -1,
+  }) async {
+    Map<String, dynamic> body = {
+      'image_id': imageID,
+      'comment': comment,
+    };
+
+    if (parentID != -1) {
+      body = {
+        ...body,
+        'parent_id': parentID.toString(),
+      };
+    }
+
+    final data = await _provider.post(
+      'comment',
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $_accessToken',
+      },
+      body: body,
     );
     return data;
   }

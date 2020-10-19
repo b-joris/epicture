@@ -5,6 +5,7 @@ class Comment {
   final String author;
   final int authorID;
   final List<Comment> responses;
+  final String postID;
 
   Comment({
     this.id,
@@ -13,9 +14,13 @@ class Comment {
     this.author,
     this.authorID,
     this.responses,
+    this.postID,
   });
 
-  factory Comment.fromJson(Map<String, dynamic> data) {
+  factory Comment.fromJson(
+    Map<String, dynamic> data, {
+    String postID,
+  }) {
     final int id = data['id'];
     final String imageID = data['image_id'];
     final String comment = data['comment'];
@@ -35,6 +40,7 @@ class Comment {
       author: author,
       authorID: authorID,
       responses: responses,
+      postID: postID,
     );
   }
 }

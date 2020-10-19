@@ -29,4 +29,20 @@ class InteractionsBloc {
     }
     return false;
   }
+
+  Future<bool> addComment(
+    String imageID,
+    String comment, {
+    int parentID = -1,
+  }) async {
+    try {
+      final data = await _repository.addCommentData(imageID, comment,
+          parentID: parentID);
+      if (data['success']) return true;
+    } catch (exception) {
+      print(exception);
+      return false;
+    }
+    return false;
+  }
 }

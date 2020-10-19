@@ -21,8 +21,8 @@ class CommentsRepository {
             : 'Client-ID: $clientID',
       },
     );
-    final comments =
-        List<Comment>.from(data['data'].map((data) => Comment.fromJson(data)));
+    final comments = List<Comment>.from(
+        data['data'].map((data) => Comment.fromJson(data, postID: postID)));
     return comments;
   }
 }

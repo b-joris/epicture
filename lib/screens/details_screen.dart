@@ -57,7 +57,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.all(defaultPadding),
-                            child: CommentItem(comment: comments[index]),
+                            child: CommentItem(
+                              comment: comments[index],
+                            ),
                           );
                         },
                       );
