@@ -113,7 +113,7 @@ class _DetailsCardState extends State<DetailsCard> {
                         Icons.arrow_drop_up,
                         color: widget.post.vote == 'up'
                             ? Theme.of(context).accentColor
-                            : Colors.black,
+                            : Theme.of(context).textTheme.bodyText1.color,
                       ),
                       Text(widget.post.ups.toString()),
                     ],
@@ -127,7 +127,7 @@ class _DetailsCardState extends State<DetailsCard> {
                         Icons.arrow_drop_down,
                         color: widget.post.vote == 'down'
                             ? Theme.of(context).accentColor
-                            : Colors.black,
+                            : Theme.of(context).textTheme.bodyText1.color,
                       ),
                       Text(widget.post.downs.toString()),
                     ],

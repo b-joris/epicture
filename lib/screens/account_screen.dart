@@ -1,6 +1,7 @@
 import 'package:epicture/main.dart';
 import 'package:epicture/screens/login_screen.dart';
 import 'package:epicture/widgets/account/account_posts.dart';
+import 'package:epicture/widgets/account/account_settings.dart';
 import 'package:epicture/widgets/account/favorites_posts.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,6 @@ class _AccountScreenState extends State<AccountScreen>
     Tab(icon: Icon(Icons.collections)),
     Tab(icon: Icon(Icons.favorite)),
     Tab(icon: Icon(Icons.person)),
-    Tab(icon: Icon(Icons.settings)),
   ];
 
   @override
@@ -59,18 +59,7 @@ class _AccountScreenState extends State<AccountScreen>
         children: [
           AccountPosts(),
           FavoritesPosts(),
-          Center(
-            child: Text(
-              selectedIndex.toString(),
-              style: TextStyle(fontSize: 40),
-            ),
-          ),
-          Center(
-            child: Text(
-              selectedIndex.toString(),
-              style: TextStyle(fontSize: 40),
-            ),
-          ),
+          AccountSettings(),
         ],
       ),
     );
