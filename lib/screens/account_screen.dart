@@ -3,7 +3,7 @@ import 'package:epicture/screens/login_screen.dart';
 import 'package:epicture/widgets/account/account_comments.dart';
 import 'package:epicture/widgets/account/account_posts.dart';
 import 'package:epicture/widgets/account/account_settings.dart';
-import 'package:epicture/widgets/account/favorites_posts.dart';
+import 'package:epicture/widgets/account/account_favorites.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -60,7 +60,7 @@ class _AccountScreenState extends State<AccountScreen>
         controller: tabController,
         children: [
           AccountPosts(),
-          FavoritesPosts(),
+          AccountFavorites(),
           AccountComments(),
           AccountSettings(),
         ],
