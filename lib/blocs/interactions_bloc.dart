@@ -36,11 +36,29 @@ class InteractionsBloc {
     int parentID = -1,
   }) async {
     try {
-      final data = await _repository.addCommentData(imageID, comment,
-          parentID: parentID);
+      final data = await _repository.addCommentData(
+        imageID,
+        comment,
+        parentID: parentID,
+      );
       if (data['success']) return true;
-    } catch (exception) {
-      print(exception);
+    } catch (_) {
+      return false;
+    }
+    return false;
+  }
+
+  Future<bool> updateSetting({
+    String username,
+    String bio,
+  }) async {
+    try {
+      final data = await _repository.updateSettingData(
+        username: username,
+        bio: bio,
+      );
+      if (data['success']) return true;
+    } catch (_) {
       return false;
     }
     return false;

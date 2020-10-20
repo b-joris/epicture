@@ -56,7 +56,6 @@ class _AccountCommentsState extends State<AccountComments> {
                   ),
                 );
               case Status.ERROR:
-                print(snapshot.data);
                 return Center(child: Text('Error while loading posts'));
             }
           }

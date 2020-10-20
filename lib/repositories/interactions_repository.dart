@@ -57,4 +57,23 @@ class InteractionsRepository {
     );
     return data;
   }
+
+  Future<Map<String, dynamic>> updateSettingData({
+    String username,
+    String bio,
+  }) async {
+    Map<String, dynamic> body = {};
+
+    if (username != null) body['username'] = username;
+    if (bio != null) body['bio'] = bio;
+
+    final data = await _provider.post(
+      'account/me/settings',
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $_accessToken',
+      },
+      body: body,
+    );
+    return data;
+  }
 }
