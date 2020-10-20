@@ -2,6 +2,7 @@ import 'package:epicture/blocs/interactions_bloc.dart';
 import 'package:epicture/blocs/search_bloc.dart';
 import 'package:epicture/constants.dart';
 import 'package:epicture/helpers/add_post.dart';
+import 'package:epicture/main.dart';
 import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
 import 'package:epicture/widgets/cards/list_post_card.dart';
@@ -19,6 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
   int _selectedWindow = 0;
   final _bloc = SearchBloc();
   final _interactionsBloc = InteractionsBloc();
+  final _accessToken = sharedPreferences.get('access_token');
   final _sorts = ['time', 'viral', 'top'];
   final _windows = ['all', 'day', 'week', 'month', 'year'];
 
@@ -67,11 +69,13 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         title: Text('Search'),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        label: Text('Add an Image'),
-        onPressed: () => addPost(context),
-      ),
+      floatingActionButton: _accessToken != null
+          ? FloatingActionButton.extended(
+              icon: Icon(Icons.add),
+              label: Text('Add an Image'),
+              onPressed: () => addPost(context),
+            )
+          : null,
       body: Column(
         children: [
           Padding(

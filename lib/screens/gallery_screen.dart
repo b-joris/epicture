@@ -2,6 +2,7 @@ import 'package:epicture/blocs/gallery_bloc.dart';
 import 'package:epicture/blocs/interactions_bloc.dart';
 import 'package:epicture/constants.dart';
 import 'package:epicture/helpers/add_post.dart';
+import 'package:epicture/main.dart';
 import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
 import 'package:epicture/widgets/cards/list_post_card.dart';
@@ -15,6 +16,7 @@ class GalleryScreen extends StatefulWidget {
 class _GalleryScreenState extends State<GalleryScreen> {
   final _galleryBloc = GalleryBloc();
   final _interactionsBloc = InteractionsBloc();
+  final _accessToken = sharedPreferences.get('access_token');
 
   @override
   dispose() {
@@ -28,11 +30,13 @@ class _GalleryScreenState extends State<GalleryScreen> {
       appBar: AppBar(
         title: Text('Gallery'),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        label: Text('Add an Image'),
-        onPressed: () => addPost(context),
-      ),
+      floatingActionButton: _accessToken != null
+          ? FloatingActionButton.extended(
+              icon: Icon(Icons.add),
+              label: Text('Add an Image'),
+              onPressed: () => addPost(context),
+            )
+          : null,
       body: RefreshIndicator(
         onRefresh: () => _galleryBloc.fetchGallery(),
         child: StreamBuilder(
