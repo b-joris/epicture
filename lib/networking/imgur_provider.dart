@@ -31,7 +31,6 @@ class ImgurProvider {
     String endpoint, {
     Map<String, String> headers,
   }) async {
-    print(_accessToken);
     final response = await http.get(
       _baseUrl + endpoint,
       headers: {
