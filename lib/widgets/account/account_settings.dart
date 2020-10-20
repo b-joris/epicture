@@ -88,17 +88,21 @@ class _AccountSettingsState extends State<AccountSettings> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
+                      SizedBox(height: 20),
                       Row(
                         children: [
                           Text(account.username),
                           Spacer(),
-                          RaisedButton(
-                            child: Text('Edit'),
-                            color: Theme.of(context).accentColor,
-                            onPressed: () => _showDialog('username'),
+                          GestureDetector(
+                            onTap: () => _showDialog('username'),
+                            child: Icon(
+                              Icons.edit,
+                              color: Theme.of(context).accentColor,
+                            ),
                           ),
                         ],
                       ),
+                      SizedBox(height: 10),
                       Row(
                         children: [
                           Text(
@@ -113,10 +117,12 @@ class _AccountSettingsState extends State<AccountSettings> {
                             ),
                           ),
                           Spacer(),
-                          RaisedButton(
-                            child: Text('Edit'),
-                            color: Theme.of(context).accentColor,
-                            onPressed: () => _showDialog('bio'),
+                          GestureDetector(
+                            onTap: () => _showDialog('bio'),
+                            child: Icon(
+                              Icons.edit,
+                              color: Theme.of(context).accentColor,
+                            ),
                           ),
                         ],
                       ),
