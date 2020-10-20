@@ -1,6 +1,7 @@
 import 'package:epicture/blocs/gallery_bloc.dart';
 import 'package:epicture/blocs/interactions_bloc.dart';
 import 'package:epicture/constants.dart';
+import 'package:epicture/helpers/add_post.dart';
 import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
 import 'package:epicture/widgets/cards/list_post_card.dart';
@@ -26,6 +27,11 @@ class _GalleryScreenState extends State<GalleryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Gallery'),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
+        label: Text('Add an Image'),
+        onPressed: () => addPost(context),
       ),
       body: RefreshIndicator(
         onRefresh: () => _galleryBloc.fetchGallery(),

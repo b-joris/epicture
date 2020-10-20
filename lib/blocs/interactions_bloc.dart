@@ -63,4 +63,48 @@ class InteractionsBloc {
     }
     return false;
   }
+
+  Future<bool> uploadFile(
+    String encodedFile,
+    bool isImage, {
+    String title,
+    String description,
+    String privacy,
+  }) async {
+    try {
+      final data = await _repository.uploadFileData(
+        encodedFile,
+        isImage,
+        title: title,
+        description: description,
+      );
+      if (data['success']) return true;
+    } catch (_) {
+      return false;
+    }
+    return false;
+  }
+
+  // Future<bool> createAlbum(
+  //   String encodedFile,
+  //   bool isImage, {
+  //   String title,
+  //   String description,
+  //   String privacy,
+  // }) async {
+  //   try {
+  //     final albumCreationData = await _repository.createAlbumData(
+  //       title: title,
+  //       description: description,
+  //       privacy: privacy,
+  //     );
+  //     if (!albumCreationData['success']) return false;
+  //     print(albumCreationData);
+  //     // final fileUploadData = await _repository.up
+  //   } catch (exception) {
+  //     print(exception);
+  //     return false;
+  //   }
+  //   return false;
+  // }
 }

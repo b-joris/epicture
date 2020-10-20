@@ -74,7 +74,10 @@ class _DetailsCardState extends State<DetailsCard> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
             ),
             CarouselSlider(
-              options: CarouselOptions(height: 300.0),
+              options: CarouselOptions(
+                height: 300.0,
+                enableInfiniteScroll: false,
+              ),
               items: widget.post.images.map((image) {
                 return Builder(
                   builder: (context) => GestureDetector(

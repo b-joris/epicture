@@ -1,6 +1,7 @@
 import 'package:epicture/constants.dart';
 import 'package:epicture/providers/theme_provider.dart';
 import 'package:epicture/screens/account_screen.dart';
+import 'package:epicture/screens/add_screen.dart';
 import 'package:epicture/screens/comments_screen.dart';
 import 'package:epicture/screens/details_screen.dart';
 import 'package:epicture/screens/gallery_screen.dart';
@@ -107,10 +108,10 @@ class _EpictureState extends State<Epicture> {
               '/gallery': (context) => GalleryScreen(),
               '/search': (context) => SearchScreen(),
               '/account': (context) => AccountScreen(),
-              '/add': (context) => Container(),
               '/login': (context) => LoginScreen(),
               DetailsScreen.routeName: (context) => DetailsScreen(),
               CommentsScreen.routeName: (context) => CommentsScreen(),
+              AddScreen.routeName: (context) => AddScreen(),
             },
           );
         },

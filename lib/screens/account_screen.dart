@@ -1,3 +1,4 @@
+import 'package:epicture/helpers/add_post.dart';
 import 'package:epicture/main.dart';
 import 'package:epicture/screens/login_screen.dart';
 import 'package:epicture/widgets/account/account_comments.dart';
@@ -55,6 +56,11 @@ class _AccountScreenState extends State<AccountScreen>
           controller: tabController,
           tabs: accountTabs,
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
+        label: Text('Add an Image'),
+        onPressed: () => addPost(context),
       ),
       body: TabBarView(
         controller: tabController,

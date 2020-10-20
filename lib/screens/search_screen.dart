@@ -1,6 +1,7 @@
 import 'package:epicture/blocs/interactions_bloc.dart';
 import 'package:epicture/blocs/search_bloc.dart';
 import 'package:epicture/constants.dart';
+import 'package:epicture/helpers/add_post.dart';
 import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
 import 'package:epicture/widgets/cards/list_post_card.dart';
@@ -35,11 +36,11 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  _buildInputChipRow(bool isSort, List<String> possibilities) {
+  _buildInputChipsRow(bool isSort, List<String> possibilities) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: possibilities.map((sort) {
-        final index = possibilities.indexOf(sort);
+      children: possibilities.map((possibility) {
+        final index = possibilities.indexOf(possibility);
         final currentIndex = isSort ? _selectedSort : _selectedWindow;
 
         return InputChip(
@@ -66,6 +67,11 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         title: Text('Search'),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
+        label: Text('Add an Image'),
+        onPressed: () => addPost(context),
+      ),
       body: Column(
         children: [
           Padding(
@@ -78,9 +84,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   }),
                   onSubmitted: _fetchSearch,
                 ),
-                _buildInputChipRow(true, _sorts),
+                _buildInputChipsRow(true, _sorts),
                 _selectedSort == 0
-                    ? _buildInputChipRow(false, _windows)
+                    ? _buildInputChipsRow(false, _windows)
                     : Container(),
               ],
             ),

@@ -9,7 +9,7 @@ import 'package:epicture/widgets/comment_item.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatefulWidget {
-  static const routeName = 'details';
+  static const routeName = '/details';
 
   @override
   _DetailsScreenState createState() => _DetailsScreenState();

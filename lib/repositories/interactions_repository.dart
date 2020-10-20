@@ -49,4 +49,34 @@ class InteractionsRepository {
     final data = await _provider.post('account/me/settings', body: body);
     return data;
   }
+
+  Future<Map<String, dynamic>> uploadFileData(
+    String encodedFile,
+    bool isImage, {
+    String title,
+    String description,
+  }) async {
+    Map<String, dynamic> body = {isImage ? 'image' : 'video': encodedFile};
+
+    if (title != null) body['title'] = title;
+    if (description != null) body['description'] = description;
+
+    final data = await _provider.post('image', body: body);
+    return data;
+  }
+
+  // Future<Map<String, dynamic>> createAlbumData({
+  //   String title,
+  //   String description,
+  //   String privacy,
+  // }) async {
+  //   Map<String, dynamic> body = {};
+
+  //   if (title != null) body['title'] = title;
+  //   if (description != null) body['description'] = description;
+  //   if (privacy != null) body['privacy'] = privacy;
+
+  //   final data = await _provider.post('album');
+  //   return data;
+  // }
 }
