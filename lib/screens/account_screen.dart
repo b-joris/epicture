@@ -49,7 +49,7 @@ class _AccountScreenState extends State<AccountScreen>
               icon: Icon(Icons.logout),
               onPressed: () {
                 sharedPreferences.remove('access_token');
-                Navigator.pushReplacementNamed(context, '/gallery');
+                Navigator.pushReplacementNamed(context, '/navigation');
               })
         ],
         bottom: TabBar(
