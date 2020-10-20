@@ -31,12 +31,13 @@ class ImgurProvider {
     String endpoint, {
     Map<String, String> headers,
   }) async {
+    print(_accessToken);
     final response = await http.get(
       _baseUrl + endpoint,
       headers: {
         HttpHeaders.authorizationHeader: _accessToken != null
             ? 'Bearer $_accessToken'
-            : 'Client-ID: $clientID',
+            : 'Client-ID $clientID',
       },
     );
     final data = _response(response);
@@ -53,7 +54,7 @@ class ImgurProvider {
       headers: {
         HttpHeaders.authorizationHeader: _accessToken != null
             ? 'Bearer $_accessToken'
-            : 'Client-ID: $clientID'
+            : 'Client-ID $clientID'
       },
       body: body,
     );
