@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:epicture/blocs/interactions_bloc.dart';
 import 'package:epicture/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 class AddScreen extends StatefulWidget {
   static const routeName = '/add';
@@ -46,18 +47,41 @@ class _AddScreenState extends State<AddScreen> {
   // }
 
   _addPost({
+    @required BuildContext context,
     @required File file,
   }) async {
+    showDialog(
+      context: context,
+      builder: (_) => SimpleDialog(
+        title: Text('Uploading...'),
+        children: [
+          Center(child: CircularProgressIndicator()),
+        ],
+      ),
+    );
+
     final encodedFile = base64Encode(file.readAsBytesSync());
     _interactionsBloc
-        .uploadFile(encodedFile, true,
-            title: _titleController.text,
-            description: _descriptionController.text
-            // privacy: _privacies[_selectedPrivacy],
-            )
-        .then((isUpload) {
+        .uploadFile(
+      encodedFile, true,
+      title: _titleController.text,
+      description: _descriptionController.text,
+      // privacy: _privacies[_selectedPrivacy],
+    )
+        .then((isUpload) async {
+      Navigator.pop(context);
       if (isUpload) {
         Navigator.pop(context);
+      } else {
+        await showDialog(
+          context: context,
+          builder: (_) => SimpleDialog(
+            title: Text('An error occured'),
+            children: [
+              Text('Your image can\t be uploaded'),
+            ],
+          ),
+        );
       }
     });
   }
@@ -74,7 +98,7 @@ class _AddScreenState extends State<AddScreen> {
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.send),
         label: Text('Add a File'),
-        onPressed: () => _addPost(file: file),
+        onPressed: () => _addPost(context: context, file: file),
       ),
       body: SingleChildScrollView(
         child: Padding(
