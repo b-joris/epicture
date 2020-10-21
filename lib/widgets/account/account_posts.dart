@@ -43,10 +43,7 @@ class _AccountPostsState extends State<AccountPosts> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.all(defaultPadding),
-                        child: GridPostCard(
-                          post: posts[index],
-                          onFavoriteTap: null,
-                        ),
+                        child: GridPostCard(post: posts[index]),
                       );
                     },
                   );

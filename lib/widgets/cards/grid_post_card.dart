@@ -6,11 +6,9 @@ import 'package:video_player/video_player.dart';
 
 class GridPostCard extends StatefulWidget {
   final Post post;
-  final Function onFavoriteTap;
 
   const GridPostCard({
     @required this.post,
-    @required this.onFavoriteTap,
     Key key,
   }) : super(key: key);
 

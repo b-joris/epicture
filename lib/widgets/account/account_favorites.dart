@@ -40,10 +40,7 @@ class _AccountFavoritesState extends State<AccountFavorites> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.all(defaultPadding),
-                    child: GridPostCard(
-                      post: posts[index],
-                      onFavoriteTap: null,
-                    ),
+                    child: GridPostCard(post: posts[index]),
                   );
                 },
               );
