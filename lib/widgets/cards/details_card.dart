@@ -1,7 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:epicture/constants.dart';
+import 'package:epicture/helpers/build_thumbnails.dart';
 import 'package:epicture/models/post.dart';
-import 'package:epicture/widgets/fullscreen_image.dart';
 import 'package:flutter/material.dart';
 
 class DetailsCard extends StatefulWidget {
@@ -73,27 +72,7 @@ class _DetailsCardState extends State<DetailsCard> {
               widget.post.title ?? '',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
             ),
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 300.0,
-                enableInfiniteScroll: false,
-              ),
-              items: widget.post.images.map((image) {
-                return Builder(
-                  builder: (context) => GestureDetector(
-                    onTap: () => {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return FullScreenImage(
-                          imageUrl: image.link,
-                          tag: 'image-${image.id}',
-                        );
-                      }))
-                    },
-                    child: Image.network(image.link),
-                  ),
-                );
-              }).toList(),
-            ),
+            buildThumbnails(context, widget.post.images, canFullscreen: true),
             SizedBox(height: 10),
             Row(
               children: [

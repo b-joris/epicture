@@ -1,4 +1,5 @@
 import 'package:epicture/constants.dart';
+import 'package:epicture/helpers/build_thumbnails.dart';
 import 'package:epicture/models/post.dart';
 import 'package:epicture/screens/details_screen.dart';
 import 'package:flutter/material.dart';
@@ -69,29 +70,6 @@ class _ListPostCardState extends State<ListPostCard> {
     });
   }
 
-  Widget _buildPreview() {
-    if (widget.post.images[0].link.contains('mp4')) {
-      return Center(child: CircularProgressIndicator());
-      // print(widget.post.title);
-      // controller = VideoPlayerController.network(widget.post.images[0].link);
-      // controller.setLooping(true);
-      // controller.initialize().then((_) => setState(() {}));
-      // controller.play();
-      // return VideoPlayer(controller);
-    }
-    return AspectRatio(
-      aspectRatio: 1.5,
-      child: Image.network(
-        widget.post.images[0].link,
-        fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgess) {
-          if (loadingProgess == null) return child;
-          return Center(child: CircularProgressIndicator());
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -132,13 +110,13 @@ class _ListPostCardState extends State<ListPostCard> {
                 ],
               ),
               SizedBox(height: 10),
-              _buildPreview(),
-              SizedBox(height: 10),
+              buildThumbnails(context, widget.post.images),
               Row(
                 children: [
                   Row(
                     children: [
                       Icon(Icons.remove_red_eye),
+                      SizedBox(width: 10),
                       Text(widget.post.views.toString()),
                     ],
                   ),
@@ -149,6 +127,7 @@ class _ListPostCardState extends State<ListPostCard> {
                       children: [
                         Icon(
                           Icons.arrow_drop_up,
+                          size: 35,
                           color: widget.post.vote == 'up'
                               ? Theme.of(context).accentColor
                               : Theme.of(context).textTheme.bodyText1.color,
@@ -163,6 +142,7 @@ class _ListPostCardState extends State<ListPostCard> {
                       children: [
                         Icon(
                           Icons.arrow_drop_down,
+                          size: 35,
                           color: widget.post.vote == 'down'
                               ? Theme.of(context).accentColor
                               : Theme.of(context).textTheme.bodyText1.color,
