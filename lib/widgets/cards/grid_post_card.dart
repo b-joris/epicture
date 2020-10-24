@@ -1,4 +1,5 @@
 import 'package:epicture/constants.dart';
+import 'package:epicture/helpers/build_thumbnails.dart';
 import 'package:epicture/models/post.dart';
 import 'package:epicture/screens/details_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,29 +24,6 @@ class _GridPostCardState extends State<GridPostCard> {
   dispose() {
     controller?.dispose();
     super.dispose();
-  }
-
-  Widget _buildPreview() {
-    if (widget.post.images[0].link.contains('mp4')) {
-      return Center(child: CircularProgressIndicator());
-      // print(widget.post.title);
-      // controller = VideoPlayerController.network(widget.post.images[0].link);
-      // controller.setLooping(true);
-      // controller.initialize().then((_) => setState(() {}));
-      // controller.play();
-      // return VideoPlayer(controller);
-    }
-    return AspectRatio(
-      aspectRatio: 1.5,
-      child: Image.network(
-        widget.post.images[0].link,
-        fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgess) {
-          if (loadingProgess == null) return child;
-          return Center(child: CircularProgressIndicator());
-        },
-      ),
-    );
   }
 
   @override
@@ -74,7 +52,7 @@ class _GridPostCardState extends State<GridPostCard> {
                 ],
               ),
               SizedBox(height: 10),
-              _buildPreview(),
+              buildThumbnails(context, widget.post.images),
             ],
           ),
         ),

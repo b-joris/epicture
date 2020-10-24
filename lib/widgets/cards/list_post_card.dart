@@ -22,14 +22,6 @@ class ListPostCard extends StatefulWidget {
 }
 
 class _ListPostCardState extends State<ListPostCard> {
-  VideoPlayerController controller;
-
-  @override
-  dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
-
   void _changeVote(String tapped) {
     String vote = '';
 

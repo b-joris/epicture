@@ -12,9 +12,7 @@ class GalleryRepository {
     final data = await _provider.get(
         'gallery/$section?showViral=$showViral&mature=$showMature&album_previews=false');
     final posts =
-        List<Post>.from(data['data'].map((data) => Post.fromJson(data)))
-            .where((post) => !post.images[0].link.contains('mp4'))
-            .toList();
+        List<Post>.from(data['data'].map((data) => Post.fromJson(data)));
     return posts;
   }
 }
