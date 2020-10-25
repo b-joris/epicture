@@ -7,10 +7,12 @@ import 'package:http/http.dart' as http;
 
 import 'exceptions.dart';
 
+/// Class use for making HTTP calls to the API
 class ImgurProvider {
   final String _baseUrl = 'https://api.imgur.com/3/';
   final String _accessToken = sharedPreferences.get('access_token');
 
+  /// Throw an instance of [ImgurException] if the API response is bad
   dynamic _response(http.Response response) {
     switch (response.statusCode) {
       case 200:
@@ -27,6 +29,8 @@ class ImgurProvider {
     }
   }
 
+  /// Wrapper arround [http.get] method providing headers
+  /// It can throw an instance of [ImgurException] in case the API call fails
   Future<Map<String, dynamic>> get(
     String endpoint, {
     Map<String, String> headers,
@@ -43,6 +47,8 @@ class ImgurProvider {
     return data;
   }
 
+  /// Wrapper arround [http.post] method providing headers
+  /// It can throw an instance of [ImgurException] in case the API call fails
   Future<Map<String, dynamic>> post(
     String endpoint, {
     Map<String, String> headers,

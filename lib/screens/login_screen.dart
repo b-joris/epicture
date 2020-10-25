@@ -1,9 +1,9 @@
+import 'package:epicture/constants.dart';
 import 'package:epicture/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-import '../constants.dart';
-
+/// Display a webview to the Imgur platform and save credentials
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();

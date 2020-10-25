@@ -4,6 +4,7 @@ import 'package:epicture/models/comment.dart';
 import 'package:epicture/networking/response.dart';
 import 'package:epicture/repositories/comments_repository.dart';
 
+/// Bloc used for the communication between the API and the UI
 class CommentsBloc {
   CommentsRepository _repository;
   StreamController _controller;
@@ -13,6 +14,7 @@ class CommentsBloc {
     _controller = StreamController<Response<List<Comment>>>();
   }
 
+  /// When instantiate with the [CommentsBloc.fromPost], it use the [postID] to automatically fetch the data for this comment
   CommentsBloc.fromPost(String postID) {
     _repository = CommentsRepository();
     _controller = StreamController<Response<List<Comment>>>();
@@ -26,6 +28,7 @@ class CommentsBloc {
   StreamSink<Response<List<Comment>>> get commentsSink => _controller.sink;
   Stream<Response<List<Comment>>> get commentsStream => _controller.stream;
 
+  /// Fetch the post comments and send them via sink
   fetchComments(String postID) async {
     commentsSink.add(Response.loading('Getting Post Comments'));
 
@@ -37,8 +40,10 @@ class CommentsBloc {
     }
   }
 
+  /// Fetch the user comments and send them via sink
+  /// [username] can be either an Imgur's username or 'me' for the current logged user
   fetchUserComments({
-    String user = 'me',
+    String username = 'me',
   }) async {
     commentsSink.add(Response.loading('Getting User Comments'));
 

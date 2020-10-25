@@ -1,3 +1,5 @@
+/// Class in the streams
+/// It provides a [Status] to know the state of the API call
 class Response<T> {
   Status status;
   T data;
@@ -13,4 +15,5 @@ class Response<T> {
   }
 }
 
+/// Define multiple status for the API calls
 enum Status { LOADING, COMPLETED, ERROR }

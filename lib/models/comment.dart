@@ -1,3 +1,4 @@
+/// Representation of a Comment
 class Comment {
   final int id;
   final String imageID;
@@ -17,6 +18,7 @@ class Comment {
     this.postID,
   });
 
+  /// Create a [Comment] from the API data
   factory Comment.fromJson(
     Map<String, dynamic> data, {
     String postID,

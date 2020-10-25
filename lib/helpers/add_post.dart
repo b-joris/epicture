@@ -11,6 +11,7 @@ _openSource(BuildContext context, ImageSource source) async {
   }
 }
 
+/// Showing a [SimpleDialog] to let the user choose his source for uploading images
 addPost(BuildContext context) async {
   await showDialog(
     context: context,

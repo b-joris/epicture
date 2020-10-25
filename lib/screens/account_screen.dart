@@ -7,6 +7,9 @@ import 'package:epicture/widgets/account/account_settings.dart';
 import 'package:epicture/widgets/account/account_favorites.dart';
 import 'package:flutter/material.dart';
 
+/// Display the information about the logged user
+///
+/// It used [AccountPosts], [AccountFavorites], [AccountComments], [AccountSettings]
 class AccountScreen extends StatefulWidget {
   @override
   _AccountScreenState createState() => _AccountScreenState();

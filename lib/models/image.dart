@@ -1,3 +1,4 @@
+/// Representation of an Image
 class Image {
   final String id;
   final String title;
@@ -15,6 +16,7 @@ class Image {
     this.isFavorite,
   });
 
+  /// Create a [Image] from the API data
   Image.fromJson(Map<String, dynamic> data)
       : this.id = data['id'],
         this.title = data['title'],

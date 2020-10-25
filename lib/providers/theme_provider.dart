@@ -1,6 +1,5 @@
+import 'package:epicture/main.dart';
 import 'package:flutter/foundation.dart';
-
-import '../main.dart';
 
 class ThemePreferenceProvider with ChangeNotifier {
   static const THEME_STATUS = 'is_dark_theme';

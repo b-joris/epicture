@@ -56,7 +56,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                         padding: EdgeInsets.all(defaultPadding),
                         child: ListPostCard(
                           post: posts[index],
-                          onFavoriteTap: _interactionsBloc.addAlbumToFavorites,
+                          onFavoriteTap: _interactionsBloc.toggleAlbumFavorite,
                           onVoteTap: _interactionsBloc.voteForAlbum,
                         ),
                       );

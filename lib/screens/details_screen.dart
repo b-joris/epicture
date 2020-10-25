@@ -10,6 +10,7 @@ import 'package:epicture/widgets/comment_item.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatefulWidget {
+  /// [routeName] is the name used to navigate to this widget
   static const routeName = '/details';
 
   @override
@@ -65,6 +66,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    /// An [Post] must be pass as argument in order to display all the informations
     final Post post = ModalRoute.of(context).settings.arguments;
     _commentsBloc = CommentsBloc.fromPost(post.id);
 
@@ -85,7 +87,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         children: [
           DetailsCard(
             post: post,
-            onFavoriteTap: _interactionsBloc.addAlbumToFavorites,
+            onFavoriteTap: _interactionsBloc.toggleAlbumFavorite,
             onVoteTap: _interactionsBloc.voteForAlbum,
           ),
           Expanded(

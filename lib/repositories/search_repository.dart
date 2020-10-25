@@ -1,9 +1,17 @@
 import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/imgur_provider.dart';
 
+/// It can throw an [ImgurException]
 class SearchRepository {
   final _provider = ImgurProvider();
 
+  /// Fetch the gallery images
+  ///
+  /// [query] is the user text query
+  /// [sort] can be 'time' | 'viral' | 'top'
+  /// [window] can be 'all' | 'day' | 'week' | 'month' | 'year'
+  ///
+  /// It can throw an [ImgurException]
   Future<List<Post>> fetchSearchData(
     String query, {
     String sort = 'time',

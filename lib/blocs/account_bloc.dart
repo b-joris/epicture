@@ -4,6 +4,7 @@ import 'package:epicture/models/account.dart';
 import 'package:epicture/networking/response.dart';
 import 'package:epicture/repositories/account_repository.dart';
 
+/// Bloc used for the communication between the API and the UI
 class AccountBloc {
   AccountRepository _repository;
   StreamController _controller;
@@ -20,6 +21,8 @@ class AccountBloc {
   StreamSink<Response<Account>> get accountSink => _controller.sink;
   Stream<Response<Account>> get accountStream => _controller.stream;
 
+  /// Fetch the account informations and send them via sink
+  /// [username] can be either an Imgur's username or 'me' for the current logged user
   fetchAccount({
     String username = 'me',
   }) async {

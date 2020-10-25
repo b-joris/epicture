@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:epicture/models/image.dart' as Imgur;
 
+/// Representation of a Post
 class Post {
   final String id;
   final String title;
@@ -29,6 +30,7 @@ class Post {
     this.isFavorite,
   });
 
+  /// Create a [Post] from the API data
   factory Post.fromJson(Map<String, dynamic> data) {
     final images = data['images'];
 

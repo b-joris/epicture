@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// [SharedPreferences] used to save the access token and the theme of the user
 SharedPreferences sharedPreferences;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

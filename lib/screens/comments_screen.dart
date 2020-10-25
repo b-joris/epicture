@@ -6,6 +6,7 @@ import 'package:epicture/widgets/comment_item.dart';
 import 'package:flutter/material.dart';
 
 class CommentsScreen extends StatefulWidget {
+  /// [routeName] is the name used to navigate to this widget
   static const routeName = '/comments';
 
   @override
@@ -54,6 +55,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    /// An [Comment] must be pass as argument in order to display all the informations
     final Comment comment = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(

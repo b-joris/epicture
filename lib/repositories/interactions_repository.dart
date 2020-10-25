@@ -1,13 +1,23 @@
 import 'package:epicture/networking/imgur_provider.dart';
 
+/// Repository used to make the interactions
 class InteractionsRepository {
   final _provider = ImgurProvider();
 
-  Future<Map<String, dynamic>> addAlbumToFavoritesData(String postID) async {
+  /// Toggle the favorite for the [postID]'s album
+  ///
+  /// It can throw an [ImgurException]
+  Future<Map<String, dynamic>> toggleAlbumFavoriteData(String postID) async {
     final data = await _provider.post('album/$postID/favorite');
     return data;
   }
 
+  /// Vote for a specific album
+  ///
+  /// [postID] is the albumod
+  /// [vote] can be 'up' | 'down' | 'veto'
+  ///
+  /// It can throw an [ImgurException]
   Future<Map<String, dynamic>> voteForAlbumData(
     String postID, {
     String vote = '',
@@ -16,6 +26,13 @@ class InteractionsRepository {
     return data;
   }
 
+  /// Add a comment or a reply to a comment
+  ///
+  /// [imageID] is the image where you want to post the comment
+  /// [comment] is the comment itself
+  /// [parentID] have to be set if it's a reply to a comment
+  ///
+  /// It can throw an [ImgurException]
   Future<Map<String, dynamic>> addCommentData(
     String imageID,
     String comment, {
@@ -37,6 +54,9 @@ class InteractionsRepository {
     return data;
   }
 
+  /// Update Imgur's user settings
+  ///
+  /// It can throw an [ImgurException]
   Future<Map<String, dynamic>> updateSettingData({
     String username,
     String bio,
@@ -50,6 +70,13 @@ class InteractionsRepository {
     return data;
   }
 
+  /// Upload a file to Imgur
+  ///
+  /// [encodedFile] is a base64 encoded file
+  /// [isImage] define if the file is an image or video (only partially implemented)
+  /// [title], [description] are optionnals
+  ///
+  /// It can throw an [ImgurException]
   Future<Map<String, dynamic>> uploadFileData(
     String encodedFile,
     bool isImage, {
@@ -64,19 +91,4 @@ class InteractionsRepository {
     final data = await _provider.post('image', body: body);
     return data;
   }
-
-  // Future<Map<String, dynamic>> createAlbumData({
-  //   String title,
-  //   String description,
-  //   String privacy,
-  // }) async {
-  //   Map<String, dynamic> body = {};
-
-  //   if (title != null) body['title'] = title;
-  //   if (description != null) body['description'] = description;
-  //   if (privacy != null) body['privacy'] = privacy;
-
-  //   final data = await _provider.post('album');
-  //   return data;
-  // }
 }

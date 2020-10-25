@@ -4,6 +4,7 @@ import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/response.dart';
 import 'package:epicture/repositories/search_repository.dart';
 
+/// Bloc used for the communication between the API and the UI
 class SearchBloc {
   SearchRepository _repository;
   StreamController _controller;
@@ -20,6 +21,7 @@ class SearchBloc {
   StreamSink<Response<List<Post>>> get searchSink => _controller.sink;
   Stream<Response<List<Post>>> get searchStream => _controller.stream;
 
+  /// Fetch the search and send them via sink
   fetchSearch(
     String query, {
     String sort = 'time',

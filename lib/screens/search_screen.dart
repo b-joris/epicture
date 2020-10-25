@@ -115,7 +115,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             child: ListPostCard(
                               post: posts[index],
                               onFavoriteTap:
-                                  _interactionsBloc.addAlbumToFavorites,
+                                  _interactionsBloc.toggleAlbumFavorite,
                               onVoteTap: _interactionsBloc.voteForAlbum,
                             ),
                           );

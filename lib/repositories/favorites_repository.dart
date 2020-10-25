@@ -1,9 +1,16 @@
 import 'package:epicture/models/post.dart';
 import 'package:epicture/networking/imgur_provider.dart';
 
+/// Repository used to make the API call
 class FavoritesRepository {
   final _provider = ImgurProvider();
 
+  /// Fetch the favorite images for the logged user
+  ///
+  /// [page] starts a 0
+  /// [sort] can be 'oldest' | 'newest'
+  ///
+  /// It can throw an [ImgurException]
   Future<List<Post>> fetchFavoritesData({
     int page = 0,
     String sort = 'newest',

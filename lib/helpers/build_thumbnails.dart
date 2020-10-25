@@ -3,6 +3,7 @@ import 'package:epicture/widgets/fullscreen_image.dart';
 import 'package:flutter/material.dart';
 import 'package:epicture/models/image.dart' as Imgur;
 
+/// Show a [CarouselSlider] with all the post's images
 Widget buildThumbnails(
   BuildContext context,
   List<Imgur.Image> images, {
