@@ -72,12 +72,9 @@ class _SearchScreenState extends State<SearchScreen> {
       floatingActionButton: _accessToken != null
           ? FloatingActionButton.extended(
               icon: Icon(Icons.add),
-              label: Text(
-                'Add an Image',
-                style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1.color),
-              ),
+              label: Text('Add an Image'),
               onPressed: () => addPost(context),
+              foregroundColor: Colors.white,
             )
           : null,
       body: Column(
