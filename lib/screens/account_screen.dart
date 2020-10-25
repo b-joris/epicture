@@ -59,7 +59,10 @@ class _AccountScreenState extends State<AccountScreen>
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add),
-        label: Text('Add an Image'),
+        label: Text(
+          'Add an Image',
+          style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color),
+        ),
         onPressed: () => addPost(context),
       ),
       body: TabBarView(
