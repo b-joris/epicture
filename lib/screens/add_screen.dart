@@ -50,7 +50,7 @@ class _AddScreenState extends State<AddScreen> {
         .then((isUpload) async {
       Navigator.pop(context);
       if (isUpload) {
-        Navigator.pushReplacementNamed(context, '/account');
+        Navigator.pushReplacementNamed(context, '/navigation');
       } else {
         await showDialog(
           context: context,
