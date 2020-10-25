@@ -11,7 +11,9 @@ class SearchRepository {
   }) async {
     final data = await _provider.get('gallery/search/$sort/$window?q=$query');
     final posts =
-        List<Post>.from(data['data'].map((data) => Post.fromJson(data)));
+        List<Post>.from(data['data'].map((data) => Post.fromJson(data)))
+            .where((post) => !post.images[0].link.contains('mp4'))
+            .toList();
     return posts;
   }
 }
