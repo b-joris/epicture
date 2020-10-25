@@ -27,7 +27,7 @@ class CommentItem extends StatelessWidget {
             arguments: comment,
           ),
           child: Text(
-            comment.responses.length > 0 ? 'View responses' : '',
+            comment.responses.length > 0 ? 'View replies' : '',
             style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
           ),
         ),
