@@ -1,4 +1,4 @@
-# Epicture
+# 📸 Epicture
 
 Epicture is an Epitech project. The goal was to create an [Imgur](https://imgur.com) mobile client.
 
@@ -67,9 +67,9 @@ Technical and user documentation can be found in the repository in the `doc` fol
 
 ## Screenshots
 
-![](./doc/images/gallery.png)
-![](./doc/images/search.png)
-![](./doc/images/settings.png)
+| 🌃 Gallery                    | 🔎 Search                    | ⚙️ Settings                    |
+| ----------------------------- | ---------------------------- | ------------------------------ |
+| ![](./doc/images/gallery.png) | ![](./doc/images/search.png) | ![](./doc/images/settings.png) |
 
 ## Authors
 
